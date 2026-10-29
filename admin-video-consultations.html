@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Consultations | MediConnect</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f7fb;
+    color: #263445;
+}
+
+header {
+    background: #087f8c;
+    color: white;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+header h2 {
+    font-size: 22px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    background: rgba(255,255,255,.16);
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.container {
+    width: 92%;
+    max-width: 1250px;
+    margin: 30px auto;
+}
+
+.intro {
+    margin-bottom: 24px;
+}
+
+.intro h1 {
+    font-size: 27px;
+    margin-bottom: 9px;
+}
+
+.intro p {
+    color: #718096;
+    line-height: 1.6;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #2634450b;
+    border: 1px solid #e8edf3;
+}
+
+.stat p {
+    color: #718096;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.stat h2 {
+    font-size: 27px;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.toolbar input,
+.toolbar select {
+    background: white;
+    border: 1px solid #dce3eb;
+    border-radius: 8px;
+    padding: 12px;
+    font: inherit;
+    min-width: 180px;
+    flex: 1;
+}
+
+.table-wrap {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5eaf0;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1050px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f4;
+    font-size: 13px;
+}
+
+th {
+    background: #f8fafc;
+    color: #586779;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.scheduled {
+    background: #fff2cc;
+    color: #946200;
+}
+
+.in-progress {
+    background: #d9f5e8;
+    color: #087443;
+}
+
+.completed {
+    background: #dceafe;
+    color: #2458a6;
+}
+
+.cancelled {
+    background: #fee2e2;
+    color: #b42318;
+}
+
+.actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.join {
+    background: #087f8c;
+    color: white;
+}
+
+.save {
+    background: #e7edf5;
+    color: #263445;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    color: #718096;
+}
+
+.note {
+    margin-top: 20px;
+    background: #e8f5f7;
+    padding: 15px;
+    border-radius: 9px;
+    color: #28616a;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+@media(max-width:600px) {
+    header h2 { font-size: 18px; }
+    .intro h1 { font-size: 23px; }
+    .container { width: 94%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>MediConnect | Admin</h2>
+    <a href="admin-panel.html">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <section class="intro">
+        <h1>Video Consultations</h1>
+        <p>Manage patient video consultation appointments and consultation history.</p>
+    </section>
+
+    <section class="stats">
+        <div class="stat">
+            <p>Total Consultations</p>
+            <h2 id="totalCount">0</h2>
+        </div>
+        <div class="stat">
+            <p>Scheduled</p>
+            <h2 id="scheduledCount">0</h2>
+        </div>
+        <div class="stat">
+            <p>In Progress</p>
+            <h2 id="progressCount">0</h2>
+        </div>
+        <div class="stat">
+            <p>Completed</p>
+            <h2 id="completedCount">0</h2>
+        </div>
+    </section>
+
+    <section class="toolbar">
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search patient or doctor..."
+        >
+
+        <select id="statusFilter">
+            <option value="All">All Statuses</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </section>
+
+    <section class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Update Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="consultationTable"></tbody>
+        </table>
+        <div id="emptyMessage" class="empty" hidden>
+            No video consultations found.
+        </div>
+    </section>
+
+    <div class="note">
+        <strong>Note:</strong> The Join button currently provides a demo
+        action only. A real video call requires video-call integration.
+    </div>
+
+</main>
+
+<script>
+const STORAGE_KEY = "mediConnectAppointments";
+const STATUS_KEY = "mediConnectConsultationStatuses";
+
+const table = document.getElementById("consultationTable");
+const emptyMessage = document.getElementById("emptyMessage");
+const searchInput = document.getElementById("searchInput");
+const statusFilter = document.getElementById("statusFilter");
+
+function readStorage(key, fallback) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return value ?? fallback;
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function getAppointments() {
+    const data = readStorage(STORAGE_KEY, []);
+    return Array.isArray(data) ? data : [];
+}
+
+function getStatuses() {
+    return readStorage(STATUS_KEY, {});
+}
+
+function saveStatuses(statuses) {
+    localStorage.setItem(STATUS_KEY, JSON.stringify(statuses));
+}
+
+function getType(appointment) {
+    return String(
+        appointment.type ??
+        appointment.consultationType ??
+        appointment.appointmentType ??
+        appointment.visitType ??
+        ""
+    );
+}
+
+function isVideoAppointment(appointment) {
+    const type = getType(appointment).toLowerCase();
+
+    return type.includes("video") ||
+           type.includes("online") ||
+           type.includes("virtual");
+}
+
+function getPatient(appointment) {
+    return appointment.patientName ??
+           appointment.patient ??
+           appointment.name ??
+           "Unknown Patient";
+}
+
+function getDoctor(appointment) {
+    return appointment.doctorName ??
+           appointment.doctor ??
+           "Unknown Doctor";
+}
+
+function getDate(appointment) {
+    return appointment.date ??
+           appointment.appointmentDate ??
+           "Not specified";
+}
+
+function getTime(appointment) {
+    return appointment.time ??
+           appointment.appointmentTime ??
+           "Not specified";
+}
+
+function getId(appointment, index) {
+    return String(
+        appointment.id ??
+        appointment.appointmentId ??
+        (getPatient(appointment) + "_" +
+         getDoctor(appointment) + "_" +
+         getDate(appointment) + "_" + index)
+    );
+}
+
+function getStatus(appointment, index, statuses) {
+    const id = getId(appointment, index);
+
+    if (statuses[id]) return statuses[id];
+
+    const original = String(
+        appointment.status ?? "Scheduled"
+    ).toLowerCase();
+
+    if (original === "completed") return "Completed";
+    if (original === "cancelled" || original === "canceled") {
+        return "Cancelled";
+    }
+    if (original === "in progress" || original === "in-progress") {
+        return "In Progress";
+    }
+
+    return "Scheduled";
+}
+
+function statusClass(status) {
+    return status.toLowerCase().replace(/\s+/g, "-");
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+    });
+}
+
+function updateStats(appointments) {
+    const statuses = getStatuses();
+
+    const videoAppointments = appointments.filter(isVideoAppointment);
+
+    const counts = {
+        "Scheduled": 0,
+        "In Progress": 0,
+        "Completed": 0,
+        "Cancelled": 0
+    };
+
+    videoAppointments.forEach(function(appointment) {
+        const index = appointments.indexOf(appointment);
+        const status = getStatus(appointment, index, statuses);
+        counts[status] = (counts[status] || 0) + 1;
+    });
+
+    document.getElementById("totalCount").textContent =
+        videoAppointments.length;
+    document.getElementById("scheduledCount").textContent =
+        counts["Scheduled"];
+    document.getElementById("progressCount").textContent =
+        counts["In Progress"];
+    document.getElementById("completedCount").textContent =
+        counts["Completed"];
+}
+
+function renderConsultations() {
+    const appointments = getAppointments();
+    const statuses = getStatuses();
+
+    updateStats(appointments);
+
+    const search = searchInput.value.toLowerCase().trim();
+    const filter = statusFilter.value;
+
+    const filtered = appointments
+        .map(function(appointment, index) {
+            return { appointment, index };
+        })
+        .filter(function(item) {
+            return isVideoAppointment(item.appointment);
+        })
+        .filter(function(item) {
+            const appointment = item.appointment;
+            const patient = getPatient(appointment).toLowerCase();
+            const doctor = getDoctor(appointment).toLowerCase();
+            const status = getStatus(appointment, item.index, statuses);
+
+            return (
+                (patient.includes(search) || doctor.includes(search)) &&
+                (filter === "All" || status === filter)
+            );
+        });
+
+    table.innerHTML = "";
+
+    emptyMessage.hidden = filtered.length !== 0;
+
+    filtered.forEach(function(item) {
+        const appointment = item.appointment;
+        const index = item.index;
+        const id = getId(appointment, index);
+        const status = getStatus(appointment, index, statuses);
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${escapeHTML(getPatient(appointment))}</td>
+            <td>${escapeHTML(getDoctor(appointment))}</td>
+            <td>${escapeHTML(getDate(appointment))}</td>
+            <td>${escapeHTML(getTime(appointment))}</td>
+            <td>Video Consultation</td>
+            <td>
+                <span class="status ${statusClass(status)}">
+                    ${escapeHTML(status)}
+                </span>
+            </td>
+            <td>
+                <select class="row-status" aria-label="Update consultation status">
+                    ${["Scheduled", "In Progress", "Completed", "Cancelled"]
+                        .map(function(option) {
+                            return `<option value="${option}"
+                                ${status === option ? "selected" : ""}>
+                                ${option}
+                            </option>`;
+                        }).join("")}
+                </select>
+                <button class="save" data-id="${escapeHTML(id)}">
+                    Save
+                </button>
+            </td>
+            <td>
+                <button class="join" data-join="${escapeHTML(id)}">
+                    Join
+                </button>
+            </td>
+        `;
+
+        table.appendChild(row);
+
+        const select = row.querySelector(".row-status");
+        const saveButton = row.querySelector(".save");
+        const joinButton = row.querySelector(".join");
+
+        saveButton.addEventListener("click", function() {
+            const latestStatuses = getStatuses();
+            latestStatuses[id] = select.value;
+            saveStatuses(latestStatuses);
+            renderConsultations();
+        });
+
+        joinButton.addEventListener("click", function() {
+            const latestStatuses = getStatuses();
+            const currentStatus = getStatus(appointment, index, latestStatuses);
+
+            if (currentStatus === "Cancelled") {
+                alert("This consultation has been cancelled.");
+                return;
+            }
+
+            if (currentStatus === "Completed") {
+                alert("This consultation is already completed.");
+                return;
+            }
+
+            alert(
+                "Consultation selected for " + getPatient(appointment) +
+                ". Real video calling is not connected yet."
+            );
+        });
+    });
+}
+
+searchInput.addEventListener("input", renderConsultations);
+statusFilter.addEventListener("change", renderConsultations);
+
+window.addEventListener("storage", function(event) {
+    if (event.key === STORAGE_KEY || event.key === STATUS_KEY) {
+        renderConsultations();
+    }
+});
+
+renderConsultations();
+</script>
+
+</body>
+</html>

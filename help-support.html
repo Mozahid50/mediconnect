@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support | MediConnect</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #24344b;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 245px;
+            flex-shrink: 0;
+            background: #fff;
+            border-right: 1px solid #e5eaf1;
+            padding: 25px 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 35px;
+            padding: 0 8px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #e5f4ff;
+            color: #087fc5;
+            display: grid;
+            place-items: center;
+            font-size: 21px;
+        }
+
+        .brand h2 {
+            font-size: 19px;
+            color: #17375e;
+        }
+
+        .brand span {
+            color: #087fc5;
+        }
+
+        .menu-title {
+            font-size: 10px;
+            color: #929eae;
+            letter-spacing: 1px;
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 9px;
+            font-size: 13px;
+            color: #657286;
+        }
+
+        .menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #eaf5ff;
+            color: #087fc5;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 18px;
+            border-top: 1px solid #edf0f5;
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .topbar {
+            min-height: 78px;
+            padding: 15px 30px;
+            background: #fff;
+            border-bottom: 1px solid #e5eaf1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .topbar h2 {
+            font-size: 20px;
+            color: #17375e;
+        }
+
+        .topbar p {
+            font-size: 12px;
+            color: #8a95a6;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #e1f1ff;
+            color: #087fc5;
+            font-weight: bold;
+        }
+
+        .profile strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .profile small {
+            color: #8a95a6;
+            font-size: 11px;
+        }
+
+        .content {
+            max-width: 1250px;
+            margin: auto;
+            padding: 28px;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(120deg, #087fc5, #07538e);
+            padding: 32px;
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 28px;
+        }
+
+        .hero .hero-icon {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            font-size: 13px;
+            color: #e0f1ff;
+            max-width: 600px;
+        }
+
+        /* SECTION */
+        .section-title {
+            font-size: 19px;
+            color: #193958;
+            margin-bottom: 17px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .contact-card {
+            background: white;
+            border: 1px solid #e7edf4;
+            border-radius: 13px;
+            padding: 23px 18px;
+            text-align: center;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            background: #e5f4ff;
+            color: #087fc5;
+            font-size: 20px;
+            margin: 0 auto 13px;
+        }
+
+        .contact-card h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .contact-card p {
+            font-size: 12px;
+            color: #8995a6;
+            margin-bottom: 12px;
+        }
+
+        .contact-card a {
+            color: #087fc5;
+            font-size: 12px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        /* FAQ */
+        .faq-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
+            gap: 24px;
+            margin-bottom: 28px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e7edf4;
+            border-radius: 13px;
+            padding: 24px;
+            min-width: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item summary {
+            padding: 16px 0;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #30445d;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: "+";
+            color: #087fc5;
+            font-size: 20px;
+        }
+
+        .faq-item[open] summary::after {
+            content: "−";
+        }
+
+        .faq-item p {
+            color: #7b8798;
+            font-size: 12px;
+            padding: 0 0 16px;
+        }
+
+        /* SUPPORT FORM */
+        .support-form label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 15px 0 6px;
+            color: #40516a;
+        }
+
+        .support-form input,
+        .support-form select,
+        .support-form textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #dfe6ef;
+            border-radius: 8px;
+            outline: none;
+            font: inherit;
+            font-size: 12px;
+            background: #fff;
+        }
+
+        .support-form input:focus,
+        .support-form select:focus,
+        .support-form textarea:focus {
+            border-color: #087fc5;
+        }
+
+        .support-form textarea {
+            min-height: 105px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            margin-top: 18px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #087fc5;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #0669a4;
+        }
+
+        .notice {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #fff4df;
+            color: #845d16;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 22px 15px;
+            color: #929dae;
+            font-size: 11px;
+        }
+
+        @media (max-width: 1000px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .faq-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid #e5eaf1;
+            }
+
+            .brand {
+                margin-bottom: 15px;
+            }
+
+            .menu-title {
+                display: none;
+            }
+
+            .menu {
+                display: flex;
+                overflow-x: auto;
+                gap: 6px;
+            }
+
+            .menu li {
+                flex-shrink: 0;
+            }
+
+            .menu a {
+                padding: 10px;
+                font-size: 11px;
+                gap: 7px;
+            }
+
+            .sidebar-bottom {
+                margin-top: 10px;
+                padding-top: 10px;
+            }
+
+            .topbar {
+                padding: 14px 16px;
+            }
+
+            .topbar h2 {
+                font-size: 17px;
+            }
+
+            .topbar p,
+            .profile strong,
+            .profile small {
+                display: none;
+            }
+
+            .content {
+                padding: 18px 13px;
+            }
+
+            .hero {
+                padding: 24px 19px;
+            }
+
+            .hero h1 {
+                font-size: 23px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .panel {
+                padding: 18px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <a href="index.html" class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h2>Medi<span>Connect</span></h2>
+        </a>
+
+        <p class="menu-title">PATIENT MENU</p>
+
+        <ul class="menu">
+            <li>
+                <a href="patient-dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="doctors.html">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Find Doctors
+                </a>
+            </li>
+            <li>
+                <a href="appointment.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Appointments
+                </a>
+            </li>
+            <li>
+                <a href="medical-reports.html">
+                    <i class="fa-solid fa-file-medical"></i>
+                    Medical Reports
+                </a>
+            </li>
+            <li>
+                <a href="consultation-history.html">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Consultation History
+                </a>
+            </li>
+            <li>
+                <a href="patient-profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    My Profile
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-bottom">
+            <ul class="menu">
+                <li>
+                    <a href="help-support.html" class="active">
+                        <i class="fa-solid fa-headset"></i>
+                        Help & Support
+                    </a>
+                </li>
+                <li>
+                    <a href="login.php">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h2>Help & Support</h2>
+                <p>We are here to help you</p>
+            </div>
+
+            <a href="patient-profile.html" class="profile">
+                <div class="avatar">P</div>
+                <div>
+                    <strong>Patient Account</strong>
+                    <small>Patient</small>
+                </div>
+            </a>
+        </header>
+
+        <div class="content">
+
+            <section class="hero">
+                <div class="hero-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h1>How can we help you?</h1>
+                <p>
+                    Find answers to common questions about appointments,
+                    medical reports and online consultations.
+                </p>
+            </section>
+
+            <h2 class="section-title">Contact Support</h2>
+
+            <section class="contact-grid">
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>Send us your questions by email.</p>
+                    <a href="mailto:support@mediconnect.example">
+                        Email Support
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h3>Phone Support</h3>
+                    <p>Contact our support team.</p>
+                    <a href="tel:+8801000000000">
+                        Call Support
+                    </a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h3>Support Hours</h3>
+                    <p>Support availability information.</p>
+                    <span style="font-size:12px;color:#087fc5;">
+                        To be announced
+                    </span>
+                </div>
+
+            </section>
+
+            <section class="faq-layout">
+
+                <div class="panel">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+
+                    <details class="faq-item">
+                        <summary>How can I book an appointment?</summary>
+                        <p>
+                            Open Find Doctors, select a doctor and follow
+                            the appointment booking steps.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>How can I view my medical reports?</summary>
+                        <p>
+                            Open Medical Reports from your dashboard.
+                            Your available reports will appear there.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Can I consult a doctor online?</summary>
+                        <p>
+                            Online consultation requires a supported video
+                            consultation feature and a confirmed appointment.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>How can I update my profile?</summary>
+                        <p>
+                            Open My Profile to manage your personal details.
+                        </p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What if I forget my password?</summary>
+                        <p>
+                            Open the login page and select Forgot Password
+                            to access the password recovery process.
+                        </p>
+                    </details>
+                </div>
+
+                <div class="panel">
+                    <h2 class="section-title">Submit a Support Request</h2>
+
+                    <form class="support-form" id="supportForm">
+
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name"
+                               placeholder="Enter your full name" required>
+
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email"
+                               placeholder="Enter your email" required>
+
+                        <label for="topic">Support Topic</label>
+                        <select id="topic" required>
+                            <option value="">Select a topic</option>
+                            <option>Appointment Issue</option>
+                            <option>Medical Reports</option>
+                            <option>Video Consultation</option>
+                            <option>Account & Profile</option>
+                            <option>Other</option>
+                        </select>
+
+                        <label for="message">Describe Your Issue</label>
+                        <textarea id="message"
+                                  placeholder="How can we help you?"
+                                  required></textarea>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Submit Request
+                        </button>
+
+                        <div class="notice" id="notice" role="status">
+                            This is a demo form. Your request has not been
+                            sent. A backend service is required to submit it.
+                        </div>
+
+                    </form>
+                </div>
+
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            &copy; 2026 MediConnect. All rights reserved.
+            Your health, our priority.
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+    document.getElementById("supportForm")
+        .addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            document.getElementById("notice").style.display = "block";
+        });
+</script>
+
+</body>
+</html>

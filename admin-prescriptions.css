@@ -1,0 +1,356 @@
+/* =========================================
+   MediConnect - Prescription Management
+   Professional Admin Dashboard UI
+========================================= */
+
+:root {
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --primary-light: #ccfbf1;
+    --blue: #2563eb;
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --text: #172033;
+    --muted: #718096;
+    --border: #e5eaf1;
+    --shadow: 0 8px 30px rgba(23, 32, 51, 0.055);
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Main page container */
+
+.prescription-content {
+    width: min(1500px, 100%);
+    margin: 0 auto;
+    padding: 36px;
+}
+
+/* Page heading */
+
+.prescription-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.prescription-heading h1 {
+    margin: 0 0 8px;
+    font-size: clamp(25px, 3vw, 34px);
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    font-weight: 750;
+    color: #142238;
+}
+
+.prescription-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* Back button */
+
+.prescription-heading .outline-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 17px;
+    min-height: 44px;
+    border: 1px solid #d8e2ed;
+    border-radius: 10px;
+    background: var(--surface);
+    color: #34445b;
+    text-decoration: none;
+    font-weight: 650;
+    transition: all 0.2s ease;
+}
+
+.prescription-heading .outline-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: #f0fdfa;
+    transform: translateY(-1px);
+}
+
+/* Search field */
+
+.prescription-search {
+    display: block;
+    width: 100%;
+    max-width: 430px;
+    height: 48px;
+    margin: 0 0 18px;
+    padding: 0 16px;
+    border: 1px solid #dce4ee;
+    border-radius: 12px;
+    outline: none;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+    box-shadow: 0 2px 6px rgba(23, 32, 51, 0.02);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.prescription-search::placeholder {
+    color: #98a4b5;
+}
+
+.prescription-search:focus {
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.12);
+}
+
+/* Prescription count */
+
+.prescription-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    color: #66758b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Main table card */
+
+.section-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+/* Table horizontal scrolling */
+
+.prescription-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prescription table */
+
+.prescription-table {
+    width: 100%;
+    min-width: 1120px;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+}
+
+.prescription-table thead th {
+    padding: 17px 16px;
+    border-bottom: 1px solid var(--border);
+    background: #f8fafc;
+    color: #65748b;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.65px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.prescription-table tbody td {
+    padding: 18px 16px;
+    border-bottom: 1px solid #edf1f6;
+    color: #42516a;
+    font-size: 13px;
+    vertical-align: top;
+    line-height: 1.7;
+}
+
+.prescription-table tbody tr {
+    transition: background 0.18s ease;
+}
+
+.prescription-table tbody tr:hover {
+    background: #f7fcfb;
+}
+
+.prescription-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Prescription ID */
+
+.prescription-table td:first-child {
+    color: var(--primary);
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+/* Patient and doctor information */
+
+.prescription-table td strong {
+    display: inline-block;
+    margin-bottom: 3px;
+    color: #24334a;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.prescription-table td small {
+    display: inline-block;
+    color: #8390a3;
+    font-size: 11px;
+}
+
+/* Long medical information */
+
+.prescription-details {
+    min-width: 140px;
+    max-width: 250px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: #526078;
+}
+
+/* Empty state */
+
+.prescription-empty {
+    padding: 55px 20px !important;
+    text-align: center;
+    color: #8a96a8 !important;
+    font-size: 14px !important;
+}
+
+/* Database error message */
+
+.prescription-message {
+    margin: 0 0 24px;
+    padding: 16px 18px;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    background: #fff7ed;
+    color: #9a3412;
+    font-size: 13px;
+    font-weight: 550;
+}
+
+/* Scrollbar */
+
+.prescription-table-wrap::-webkit-scrollbar {
+    height: 8px;
+}
+
+.prescription-table-wrap::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.prescription-table-wrap::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #cbd5e1;
+}
+
+.prescription-table-wrap::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .prescription-content {
+        padding: 25px 20px;
+    }
+
+    .prescription-heading {
+        align-items: flex-start;
+    }
+
+    .prescription-heading h1 {
+        font-size: 28px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .prescription-content {
+        padding: 22px 14px;
+    }
+
+    .prescription-heading {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .prescription-heading h1 {
+        font-size: 25px;
+        letter-spacing: -0.5px;
+    }
+
+    .prescription-heading p {
+        max-width: 320px;
+        line-height: 1.7;
+    }
+
+    .prescription-heading .outline-btn {
+        align-self: flex-start;
+    }
+
+    .prescription-search {
+        max-width: 100%;
+    }
+
+    .section-card {
+        border-radius: 12px;
+    }
+}
+
+/* Print-friendly view */
+
+@media print {
+    body {
+        background: #fff;
+    }
+
+    .prescription-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .prescription-heading .outline-btn,
+    .prescription-search {
+        display: none !important;
+    }
+
+    .section-card {
+        border: 1px solid #ddd;
+        box-shadow: none;
+    }
+
+    .prescription-table-wrap {
+        overflow: visible;
+    }
+
+    .prescription-table {
+        min-width: 0;
+        font-size: 10px;
+    }
+
+    .prescription-table thead th,
+    .prescription-table tbody td {
+        padding: 8px;
+    }
+}
